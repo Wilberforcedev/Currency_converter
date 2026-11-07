@@ -1,25 +1,83 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Currency converter (USD to UGX)</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https: //code.jquery.com/jquery-3.6.0.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f7f6">
+  <meta name="description" content="A simple USD to UGX currency converter with a user-entered exchange rate.">
+  <title>USD to UGX Converter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="converter-container">
-        <h2>Currency Converter (USD to UGX) </h2>
+  <main class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Ratewise home">
+        <span class="brand-mark" aria-hidden="true">R</span>
+        <span>ratewise</span>
+      </a>
+      <span class="rate-note"><span class="status-dot"></span> Manual exchange rate</span>
+    </header>
 
-        <label for="usdAmount">Enter Amount(USD):</label>
-        <input type="number" id="usdAmount" placeholder="Enter USD Amount">
+    <section class="converter" aria-labelledby="page-title">
+      <div class="intro">
+        <p class="eyebrow">QUICK CURRENCY TOOL</p>
+        <h1 id="page-title">Convert with<br><span>confidence.</span></h1>
+        <p class="subtitle">Work out your USD to UGX conversion using the rate you choose.</p>
+      </div>
 
-        <label for="exchangeRate">Enter Exchange Rate:</label>
-        <input type="number" id="exchangeRate" placeholder="Enter exchange rate">
+      <form id="converterForm" novalidate>
+        <div class="field">
+          <label for="usdAmount">You send</label>
+          <div class="input-wrap">
+            <span class="currency-code">USD</span>
+            <input id="usdAmount" name="usdAmount" type="number" inputmode="decimal" min="0" step="any" placeholder="0.00" autocomplete="off" aria-describedby="amountHint errorMessage">
+          </div>
+          <p class="field-hint" id="amountHint">United States dollar</p>
+        </div>
 
-        <button id="convertBtn">Convert</button>
-        <h3>Converted Amount: <span id="convertedAmount" >0 UGX</span></h3>
-    </div>
-    <script src="script.js"></script>
+        <div class="rate-row">
+          <span class="rate-line"></span>
+          <span class="rate-icon" aria-hidden="true">↓</span>
+          <span class="rate-line"></span>
+        </div>
+
+        <div class="field">
+          <label for="exchangeRate">Exchange rate</label>
+          <div class="input-wrap rate-input-wrap">
+            <span class="rate-prefix">1 USD =</span>
+            <input id="exchangeRate" name="exchangeRate" type="number" inputmode="decimal" min="0" step="any" placeholder="Enter rate" autocomplete="off" aria-describedby="rateHint errorMessage">
+            <span class="currency-code">UGX</span>
+          </div>
+          <p class="field-hint" id="rateHint">Enter the UGX value for one US dollar</p>
+        </div>
+
+        <div class="result" aria-live="polite" aria-atomic="true">
+          <div>
+            <p class="result-label">Recipient gets</p>
+            <p class="result-currency">Ugandan shilling <span>UGX</span></p>
+          </div>
+          <output id="convertedAmount" for="usdAmount exchangeRate">—</output>
+        </div>
+
+        <p class="error-message" id="errorMessage" role="alert"></p>
+        <div class="actions">
+          <button class="convert-button" type="submit">
+            <span>Convert amount</span><span aria-hidden="true">↗</span>
+          </button>
+          <button class="clear-button" id="clearBtn" type="button">Clear</button>
+        </div>
+      </form>
+      <p class="disclaimer">This tool uses the exchange rate you enter. It does not fetch live market rates.</p>
+    </section>
+
+    <footer class="footer">
+      <span>Simple calculations. Clear results.</span>
+      <span>USD <span aria-hidden="true">→</span> UGX</span>
+    </footer>
+  </main>
 </body>
 </html>
