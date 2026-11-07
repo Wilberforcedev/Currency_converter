@@ -161,9 +161,15 @@ async function convertCurrency(event) {
     const { rate, date } = await getRate(from, to);
     resultOutput.textContent = formatAmount(amount * rate, to);
     resultPair.textContent = `1 ${from} = ${new Intl.NumberFormat("en-UG", { maximumSignificantDigits: 8 }).format(rate)} ${to}`;
-    rateDetails.innerHTML = date === "Same currency"
-      ? "<strong>No conversion needed</strong> · Both selections use the same currency."
-      : `Reference rate date: <strong>${date}</strong>`;
+    rateDetails.replaceChildren();
+    if (date === "Same currency") {
+      rateDetails.textContent = "No conversion needed · Both selections use the same currency.";
+    } else {
+      rateDetails.append("Reference rate date: ");
+      const dateLabel = document.createElement("strong");
+      dateLabel.textContent = date;
+      rateDetails.append(dateLabel);
+    }
     setServiceStatus("Reference rate ready", "ready");
   } catch (error) {
     errorMessage.textContent = error.message || "Unable to get a rate right now. Please try again.";
